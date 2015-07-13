@@ -36,5 +36,12 @@ describe('Server', function() {
         expect(server.config.mounted.casino).to.eql(casinoConf);
       });
     });
+
+    describe('#setup', function() {
+      it('configures defaults', () => {
+        server.setup();
+        expect(server.config.defaults).to.not.eql({});
+      });
+    });
   });
 });

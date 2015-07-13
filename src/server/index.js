@@ -1,5 +1,7 @@
 'use strict';
 
+import Setup from './setup';
+
 export default class Server {
   // config:     require('./config'),
   // defaults:   require('./defaults'),
@@ -16,13 +18,16 @@ export default class Server {
   // configure([{...}, {...}])
   // configure({...}, {...})
   constructor(config = {}) {
-    console.log('Server  constructor');
     this.config = {
       mounted: {}
     };
-    console.log('initial', this.config);
     this.config = Object.assign(this.config, config);
-    console.log('merged', this.config);
+
+  }
+
+  setup() {
+    this.setup = new Setup(this.config);
+    this.setup.configureApp();
   }
 
   mount(config, name) {

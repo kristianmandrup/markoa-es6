@@ -11,7 +11,7 @@ module.exports = class Server {
   }
 
   configure(conf) {
-    // configure koa app for Marko rendering        
+    // configure koa app for Marko rendering
     this.app = this.server.configure(options);
 
     return this;
@@ -19,5 +19,5 @@ module.exports = class Server {
 
   run(options = {}) {
     return this.server.setup.run(options);
-  }  
+  }
 }

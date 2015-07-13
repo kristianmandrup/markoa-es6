@@ -1,20 +1,27 @@
 'use strict';
 
+import {koa} from 'koa';
+import {defaults} from './defaults';
+// import middleware from './middleware';
+
 // Usage new Setup(server, {})
 module.exports = class Setup {
-  constructor(server, options) {
-    var koa = require('koa');
-
-    this.server = server;
-    server.app = koa();
-    var log = server.logger.log;
-
-    log('configuring server', options);
+  constructor(config) {
+    this.config = config;
 
     // load server default configs
-    server.defaults = require('./defaults');
+    this.config.defaults = defaults;
+  }
+
+  log(msg) {
+    this.config.logger.log(msg);
+  }
+
+  // app configuration
+  configureApp() {
+    server.app = koa();
 
     // mount all middleware
-    return require('./middleware').configure(server, options);
+    return middleware.mountAll(this.config);
   }
 };
