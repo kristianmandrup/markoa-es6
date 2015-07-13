@@ -1,6 +1,6 @@
 'use strict';
 
-export default {
+export default class Server {
   // config:     require('./config'),
   // defaults:   require('./defaults'),
   // execute:    require('./execute'),
@@ -15,21 +15,34 @@ export default {
   // configure({...})
   // configure([{...}, {...}])
   // configure({...}, {...})
-  configure: function(config, ...configs) {
-    if (!config) {
-      console.log('no config', config);
-      return;
-    }
-    if (Array.isArray(config)) {
-      configs = config;
+  constructor(config = {}) {
+    console.log('Server  constructor');
+    this.config = {
+      mounted: {}
+    };
+    console.log('initial', this.config);
+    this.config = Object.assign(this.config, config);
+    console.log('merged', this.config);
+  }
+
+  mount(config, name) {
+    console.log('mount', config, name);
+    if (typeof name === 'string') {
+      this.mountModule(config, name);
+    } else {
+      // mount directly
+      mountConfig(config);
     }
 
-    if (configs) {
-      for (let conf in configs)
-        console.log(conf);
-        // this.configure(config);
-    }
-
+    return this;
     // this.setup.configure(config);
   }
-};
+
+  mountModule(config, name) {
+    this.config.mounted[name] = config;
+  }
+
+  mountConfig(config) {
+    this.config = Object.assign(this.config, config);
+  }
+}

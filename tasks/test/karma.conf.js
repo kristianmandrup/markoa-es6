@@ -12,7 +12,7 @@ module.exports = function(config) {
   config.set({
       basePath: '../../',
       autoWatch: true,
-      frameworks: ['mocha'],
+      frameworks: ['mocha', 'es6-shim'],
       sauceLabs: {
         build: process.env.TRAVIS_JOB_ID,
         testName: process.env.LIBRARY_NAME

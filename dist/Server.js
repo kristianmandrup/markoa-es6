@@ -71,7 +71,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = {
+
+	var Server = (function () {
 	  // config:     require('./config'),
 	  // defaults:   require('./defaults'),
 	  // execute:    require('./execute'),
@@ -86,29 +87,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // configure({...})
 	  // configure([{...}, {...}])
 	  // configure({...}, {...})
-	  configure: function configure(config) {
-	    if (!config) {
-	      console.log('no config', config);
-	      return;
-	    }
-	    if (Array.isArray(config)) {
-	      configs = config;
-	    }
 
-	    for (var _len = arguments.length, configs = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      configs[_key - 1] = arguments[_key];
-	    }
+	  function Server() {
+	    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    babelHelpers.classCallCheck(this, Server);
 
-	    if (configs) {
-	      for (var conf in configs) {
-	        console.log(conf);
-	        // this.configure(config);
-	      }
-	    }
-
-	    // this.setup.configure(config);
+	    console.log('Server  constructor');
+	    this.config = {
+	      mounted: {}
+	    };
+	    console.log('initial', this.config);
+	    this.config = Object.assign(this.config, config);
+	    console.log('merged', this.config);
 	  }
-	};
+
+	  babelHelpers.createClass(Server, [{
+	    key: 'mount',
+	    value: function mount(config, name) {
+	      console.log('mount', config, name);
+	      if (typeof name === 'string') {
+	        this.mountModule(config, name);
+	      } else {
+	        // mount directly
+	        mountConfig(config);
+	      }
+
+	      return this;
+	      // this.setup.configure(config);
+	    }
+	  }, {
+	    key: 'mountModule',
+	    value: function mountModule(config, name) {
+	      this.config.mounted[name] = config;
+	    }
+	  }, {
+	    key: 'mountConfig',
+	    value: function mountConfig(config) {
+	      this.config = Object.assign(this.config, config);
+	    }
+	  }]);
+	  return Server;
+	})();
+
+	exports['default'] = Server;
 	module.exports = exports['default'];
 
 /***/ }
