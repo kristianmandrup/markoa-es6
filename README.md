@@ -1,6 +1,8 @@
 Universal Starter Kit to build any javascript ES6 project/library runnable in nodejs and on any browser
 ====================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/markoa-es6.svg)](https://greenkeeper.io/)
+
 [![Build Status][travis-image]][travis-url]
 
 [![Dependency Status][gemnasium-image]][gemnasium-url]
